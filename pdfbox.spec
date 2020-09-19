@@ -1,16 +1,17 @@
 Name:          pdfbox
 Version:       2.0.9
-Release:       6
+Release:       7
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
 Source0:       http://archive.apache.org/dist/pdfbox/%{version}/pdfbox-%{version}-src.zip
-
-BuildRequires:  maven-local mvn(commons-io:commons-io)
-BuildRequires:  mvn(commons-logging:commons-logging) mvn(junit:junit)
-BuildRequires:  mvn(log4j:log4j:1.2.17) mvn(org.apache.ant:ant) mvn(org.apache:apache:pom:)
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin) mvn(org.bouncycastle:bcmail-jdk15on)
-BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on) dejavu-sans-mono-fonts google-noto-emoji-fonts
+Patch6000:     CVE-2018-8036.patch
+Patch6001:     CVE-2018-11797.patch
+BuildRequires: maven-local mvn(commons-io:commons-io)
+BuildRequires: mvn(commons-logging:commons-logging) mvn(junit:junit)
+BuildRequires: mvn(log4j:log4j:1.2.17) mvn(org.apache.ant:ant) mvn(org.apache:apache:pom:)
+BuildRequires: mvn(org.apache.felix:maven-bundle-plugin) mvn(org.bouncycastle:bcmail-jdk15on)
+BuildRequires: mvn(org.bouncycastle:bcprov-jdk15on) dejavu-sans-mono-fonts google-noto-emoji-fonts
 BuildRequires: liberation-sans-fonts icc-profiles-openicc fontconfig
 Requires:      liberation-sans-fonts
 
@@ -77,7 +78,7 @@ XMP(TM) specification.  It can be used to parse, validate and create xmp
 contents.  It is mainly used by subproject preflight of Apache PDFBox.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %pom_disable_module preflight-app
@@ -149,5 +150,8 @@ sed -i -e 's/TestTextStripper/BidiTest/' pdfbox/src/test/java/org/apache/pdfbox/
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Sat Sep 19 2020 zhanghua <zhanghua40@huawei.com> - 2.0.9-7
+- Fix CVE-2018-8036, CVE-2018-11797
+
 * Fri Feb 28 2020 Senlin Xia <xiasenlin1@huawei.com> - 2.0.9-6
 - package init
