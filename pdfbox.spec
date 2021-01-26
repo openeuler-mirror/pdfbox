@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.9
-Release:       7
+Release:       8
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -108,6 +108,11 @@ do
 done
 sed -i -e 's/TestTextStripper/BidiTest/' pdfbox/src/test/java/org/apache/pdfbox/text/BidiTest.java
 
+rm pdfbox/src/test/java/org/apache/pdfbox/multipdf/MergeAcroFormsTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/multipdf/MergeAnnotationsTest.java
+sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.Ignore' \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDButtonTest.java
+
 
 %mvn_file :pdfbox pdfbox
 %mvn_file :pdfbox pdfbox
@@ -150,6 +155,9 @@ sed -i -e 's/TestTextStripper/BidiTest/' pdfbox/src/test/java/org/apache/pdfbox/
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Jan 26 2021 lingsheng <lingsheng@huawei.com> - 2.0.9-8
+- Remove tests which require net connectivity
+
 * Sat Sep 19 2020 zhanghua <zhanghua40@huawei.com> - 2.0.9-7
 - Fix CVE-2018-8036, CVE-2018-11797
 
