@@ -1,15 +1,14 @@
 Name:          pdfbox
-Version:       2.0.9
-Release:       8
+Version:       2.0.23
+Release:       1
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
 Source0:       http://archive.apache.org/dist/pdfbox/%{version}/pdfbox-%{version}-src.zip
-Patch6000:     CVE-2018-8036.patch
-Patch6001:     CVE-2018-11797.patch
+Patch0000:     0001-port-to-bouncycastle-1.61.patch
 BuildRequires: maven-local mvn(commons-io:commons-io)
 BuildRequires: mvn(commons-logging:commons-logging) mvn(junit:junit)
-BuildRequires: mvn(log4j:log4j:1.2.17) mvn(org.apache.ant:ant) mvn(org.apache:apache:pom:)
+BuildRequires: mvn(org.apache.ant:ant) mvn(org.apache:apache:pom:)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin) mvn(org.bouncycastle:bcmail-jdk15on)
 BuildRequires: mvn(org.bouncycastle:bcprov-jdk15on) dejavu-sans-mono-fonts google-noto-emoji-fonts
 BuildRequires: liberation-sans-fonts icc-profiles-openicc fontconfig
@@ -93,7 +92,6 @@ contents.  It is mainly used by subproject preflight of Apache PDFBox.
 %pom_remove_plugin -r :maven-source-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 %pom_remove_plugin -r :maven-checkstyle-plugin
-%pom_remove_plugin -r :maven-download-plugin
 %pom_remove_plugin -r :download-maven-plugin
 
 %pom_remove_dep -r com.github.jai-imageio:
@@ -114,7 +112,6 @@ sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.I
    pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDButtonTest.java
 
 
-%mvn_file :pdfbox pdfbox
 %mvn_file :pdfbox pdfbox
 %mvn_file :pdfbox-debugger pdfbox-debugger
 %mvn_file :pdfbox-examples pdfbox-examples
@@ -155,6 +152,9 @@ sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.I
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Apr 01 2021 maminjie <maminjie1@huawei.com> - 2.0.23-1
+- Upgrade to 2.0.23
+
 * Tue Jan 26 2021 lingsheng <lingsheng@huawei.com> - 2.0.9-8
 - Remove tests which require net connectivity
 
