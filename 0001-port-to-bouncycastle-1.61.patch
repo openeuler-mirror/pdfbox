@@ -1,0 +1,36 @@
+From d958a27c35d5a173ab3be1798516955cc17b0de8 Mon Sep 17 00:00:00 2001
+From: maminjie <maminjie1@huawei.com>
+Date: Thu, 1 Apr 2021 15:02:02 +0800
+Subject: [PATCH] port to bouncycastle 1.61
+
+---
+ .../pdfbox/pdmodel/encryption/PublicKeySecurityHandler.java | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/pdfbox/src/main/java/org/apache/pdfbox/pdmodel/encryption/PublicKeySecurityHandler.java b/pdfbox/src/main/java/org/apache/pdfbox/pdmodel/encryption/PublicKeySecurityHandler.java
+index 33badbc..a62529f 100644
+--- a/pdfbox/src/main/java/org/apache/pdfbox/pdmodel/encryption/PublicKeySecurityHandler.java
++++ b/pdfbox/src/main/java/org/apache/pdfbox/pdmodel/encryption/PublicKeySecurityHandler.java
+@@ -50,6 +50,7 @@ import org.bouncycastle.asn1.ASN1ObjectIdentifier;
+ import org.bouncycastle.asn1.ASN1Primitive;
+ import org.bouncycastle.asn1.ASN1Set;
+ import org.bouncycastle.asn1.DEROctetString;
++import org.bouncycastle.asn1.DEROutputStream;
+ import org.bouncycastle.asn1.DERSet;
+ import org.bouncycastle.asn1.cms.ContentInfo;
+ import org.bouncycastle.asn1.cms.EncryptedContentInfo;
+@@ -457,7 +458,10 @@ public final class PublicKeySecurityHandler extends SecurityHandler
+ 
+             ASN1Primitive obj = createDERForRecipient(pkcs7input, certificate);
+             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+-            obj.encodeTo(baos, ASN1Encoding.DER);
++            //obj.encodeTo(baos, ASN1Encoding.DER);
++            //no symbol encodeTo in bouncycastle 1.61
++            DEROutputStream k = new DEROutputStream(baos);
++            k.writeObject(obj);
+ 
+             recipientsField[i] = baos.toByteArray();
+ 
+-- 
+2.23.0
+
