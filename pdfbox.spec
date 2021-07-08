@@ -1,17 +1,17 @@
 Name:          pdfbox
-Version:       2.0.23
+Version:       2.0.24
 Release:       1
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
-Source0:       http://archive.apache.org/dist/pdfbox/%{version}/pdfbox-%{version}-src.zip
+Source0:       http://www.apache.org/dyn/closer.lua/pdfbox/%{version}/pdfbox-%{version}-src.zip
 Patch0000:     0001-port-to-bouncycastle-1.61.patch
 BuildRequires: maven-local mvn(commons-io:commons-io)
 BuildRequires: mvn(commons-logging:commons-logging) mvn(junit:junit)
 BuildRequires: mvn(org.apache.ant:ant) mvn(org.apache:apache:pom:)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin) mvn(org.bouncycastle:bcmail-jdk15on)
 BuildRequires: mvn(org.bouncycastle:bcprov-jdk15on) dejavu-sans-mono-fonts google-noto-emoji-fonts
-BuildRequires: liberation-sans-fonts icc-profiles-openicc fontconfig
+BuildRequires: liberation-sans-fonts icc-profiles-openicc fontconfig mockito
 Requires:      liberation-sans-fonts
 
 BuildArch:     noarch
@@ -152,6 +152,9 @@ sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.I
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Jun 29 2021 houyingchao <houyingchao@huawei.com> - 2.0.24-1
+- Upgrade to 2.0.24
+
 * Thu Apr 01 2021 maminjie <maminjie1@huawei.com> - 2.0.23-1
 - Upgrade to 2.0.23
 
