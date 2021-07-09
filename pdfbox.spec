@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.24
-Release:       1
+Release:       2
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -107,7 +107,14 @@ done
 sed -i -e 's/TestTextStripper/BidiTest/' pdfbox/src/test/java/org/apache/pdfbox/text/BidiTest.java
 
 rm pdfbox/src/test/java/org/apache/pdfbox/multipdf/MergeAcroFormsTest.java \
-   pdfbox/src/test/java/org/apache/pdfbox/multipdf/MergeAnnotationsTest.java
+   pdfbox/src/test/java/org/apache/pdfbox/multipdf/MergeAnnotationsTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/font/PDFontTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDAcroFormFlattenTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDAcroFormFromAnnotsTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDAcroFormGenerateAppearancesTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDAcroFormTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDFieldTreeTest.java \
+   pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/TestRadioButtons.java
 sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.Ignore' \
    pdfbox/src/test/java/org/apache/pdfbox/pdmodel/interactive/form/PDButtonTest.java
 
@@ -121,10 +128,13 @@ sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.I
 %mvn_file :fontbox fontbox
 
 %build
-%mvn_build -s -- -DskipITs -Dlucene.version=4 -Dmaven.test.failure.ignore=true
+%mvn_build -s --skipTests -- -DskipITs -Dlucene.version=4 -Dmaven.test.failure.ignore=true
 
 %install
 %mvn_install
+
+%check
+xmvn test --batch-mode --offline -Dmaven.test.failure.ignore=true verify
 
 %files -f .mfiles-pdfbox
 %doc README.md RELEASE-NOTES.txt
@@ -152,6 +162,10 @@ sed -i -e '/\(OptionsAndNamesNotNumbers\|RadioButtonWithOptions\)/i\@org.junit.I
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Jul 09 2021 lingsheng <lingsheng@huawei.com> - 2.0.24-2
+- Remove tests which require net connectivity to avoid build stuck
+- Move tests to check stage
+
 * Tue Jun 29 2021 houyingchao <houyingchao@huawei.com> - 2.0.24-1
 - Upgrade to 2.0.24
 
