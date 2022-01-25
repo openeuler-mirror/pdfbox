@@ -1,6 +1,6 @@
 Name:          pdfbox
-Version:       2.0.24
-Release:       2
+Version:       2.0.25
+Release:       1
 Summary:       A Java PDF Library
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -162,6 +162,9 @@ xmvn test --batch-mode --offline -Dmaven.test.failure.ignore=true verify
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Jan 18 2022 SimpleUpdate Robot <tc@openeuler.org> - 2.0.25-1
+- Upgrade to version 2.0.25
+
 * Fri Jul 09 2021 lingsheng <lingsheng@huawei.com> - 2.0.24-2
 - Remove tests which require net connectivity to avoid build stuck
 - Move tests to check stage
